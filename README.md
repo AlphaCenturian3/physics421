@@ -24,10 +24,11 @@ Both keys are optional — the app degrades gracefully without them.
 ### AI Tutor (optional)
 
 ```env
-VITE_ANTHROPIC_API_KEY=sk-ant-...
+ANTHROPIC_API_KEY=sk-ant-...
 ```
 
 Get a key at https://console.anthropic.com/  
+Set this in Netlify environment variables (not in `.env` — it is a server-side secret used only by Netlify Functions).  
 Without this: all 17 visualizations and practice questions work. The tutor shows a setup banner instead of connecting.
 
 ### Auth + Saved Progress (optional)

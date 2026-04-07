@@ -227,7 +227,84 @@ const ALL_QUESTIONS: Question[] = [
     question: "A long straight wire carries I = 5 A. Using Ampere's Law, find B at r = 2 cm from the wire. What is the direction?",
     rubric: ["∮B·dl = μ₀I_enc", "B(2πr) = μ₀I", "B = μ₀I/(2πr)", "B = (4π×10⁻⁷ × 5)/(2π × 0.02) = 5×10⁻⁵ T = 50 μT", "Direction: right-hand rule around wire"],
     sampleAnswer: "B·2πr = μ₀I → B = μ₀I/(2πr) = (4π×10⁻⁷ × 5)/(2π × 0.02) = 50 μT. Direction: use right-hand rule — curl fingers in direction of current, B circles the wire." },
+
+  // ── Inductance ──
+  { id: 'ind1', type: 'mcq', topicId: 'inductance', topic: 'Inductance', difficulty: 1,
+    question: "Self-inductance L is defined by:",
+    options: ["L = NΦ/I", "L = V/I", "L = IR", "L = dI/dV"],
+    correct: 0, explanation: "L = NΦ/I, where NΦ is the total flux linkage. Also: EMF = −L·dI/dt." },
+  { id: 'ind2', type: 'mcq', topicId: 'inductance', topic: 'Inductance', difficulty: 1,
+    question: "An inductor opposes changes in:",
+    options: ["Voltage", "Charge", "Current", "Resistance"],
+    correct: 2, explanation: "By Faraday's Law, EMF = −L·dI/dt. The inductor resists any change in the current flowing through it." },
+  { id: 'ind3', type: 'mcq', topicId: 'inductance', topic: 'Inductance', difficulty: 2,
+    question: "The time constant τ of a series RL circuit is:",
+    options: ["R/L", "L/R", "RL", "1/(RL)"],
+    correct: 1, explanation: "τ = L/R. After one time constant, current rises to ~63% of its final value (or falls to ~37% when switched off)." },
+  { id: 'ind4', type: 'mcq', topicId: 'inductance', topic: 'Inductance', difficulty: 2,
+    question: "Energy stored in an inductor carrying current I is:",
+    options: ["LI", "½LI²", "LI²", "½LI"],
+    correct: 1, explanation: "U = ½LI² — analogous to ½CV² for a capacitor. Energy is stored in the magnetic field." },
+  { id: 'ind5', type: 'mcq', topicId: 'inductance', topic: 'Inductance', difficulty: 2,
+    question: "When the switch in an RL circuit is opened suddenly (breaking current), the inductor:",
+    options: ["Does nothing", "Drives current in the same direction it was flowing", "Reverses the current", "Stores charge like a capacitor"],
+    correct: 1, explanation: "By Lenz's Law, the inductor opposes the drop in current — it generates a large EMF to keep current flowing in the same direction, which can cause arcing." },
+  { id: 'ind6', type: 'mcq', topicId: 'inductance', topic: 'Inductance', difficulty: 3,
+    question: "Doubling the number of turns N of a solenoid (keeping length and radius constant) changes L by a factor of:",
+    options: ["2", "4", "1/2", "√2"],
+    correct: 1, explanation: "L = μ₀N²A/ℓ. Inductance is proportional to N². Doubling N multiplies L by 4." },
+  { id: 'ind7', type: 'frq', topicId: 'inductance', topic: 'Inductance', difficulty: 2,
+    question: "A series RL circuit has R = 40 Ω and L = 0.2 H. At t = 0 a 12 V battery is connected. (a) Find the time constant τ. (b) Find the steady-state current. (c) Write I(t) and find I at t = τ.",
+    rubric: ["τ = L/R = 0.2/40 = 5 ms", "I_∞ = V/R = 12/40 = 0.3 A", "I(t) = I_∞(1 − e^{−t/τ})", "I(τ) = 0.3(1 − e⁻¹) ≈ 0.3 × 0.632 ≈ 0.190 A"],
+    sampleAnswer: "τ = L/R = 0.2/40 = 0.005 s = 5 ms. Steady-state: I_∞ = 12/40 = 0.3 A. I(t) = 0.3(1 − e^{−t/0.005}) A. At t = τ: I = 0.3(1 − 1/e) ≈ 0.190 A." },
+  { id: 'ind8', type: 'frq', topicId: 'inductance', topic: 'Inductance', difficulty: 2,
+    question: "A solenoid has 500 turns, length 0.25 m, and cross-sectional area 4 cm². (a) Find its self-inductance L. (b) If it carries 2 A, find the stored energy. (c) Find the induced EMF if the current drops from 2 A to 0 in 10 ms.",
+    rubric: ["L = μ₀N²A/ℓ", "L = (4π×10⁻⁷)(500²)(4×10⁻⁴)/0.25 ≈ 0.503 mH", "U = ½LI² = ½(0.503×10⁻³)(4) ≈ 1.005×10⁻³ J", "EMF = L·|ΔI/Δt| = (0.503×10⁻³)(2/0.01) ≈ 0.1 V"],
+    sampleAnswer: "L = μ₀N²A/ℓ = (4π×10⁻⁷)(250000)(4×10⁻⁴)/0.25 ≈ 5.03×10⁻⁴ H. U = ½LI² ≈ 1.0 mJ. EMF = L·dI/dt = (5.03×10⁻⁴)(200) ≈ 0.1 V." },
+  { id: 'ind9', type: 'frq', topicId: 'inductance', topic: 'Inductance', difficulty: 3,
+    question: "Explain why a spark or arc often appears when you unplug a device from a wall outlet, relating this to inductance, Lenz's Law, and energy conservation.",
+    rubric: ["Current in inductive loads cannot change instantaneously", "L·dI/dt produces a very large EMF when Δt → 0", "Lenz's Law: induced EMF drives current in same direction to oppose change", "Energy stored U = ½LI² must go somewhere — dissipated as spark/arc", "Larger L or faster disconnect = larger spark"],
+    sampleAnswer: "Inductive loads (motors, transformers) store energy U = ½LI². When unplugged suddenly, Δt ≈ 0 so dI/dt → ∞, generating an enormous EMF = L·dI/dt. By Lenz's Law, this EMF drives current in the original direction, ionizing the air gap and creating a spark. The spark is the stored magnetic energy being released — consistent with energy conservation." },
 ]
+
+// ─── Feedback pools ──────────────────────────────────────────────────────────
+
+const FEEDBACK = {
+  correct: [
+    "Nailed it.",
+    "That's the one.",
+    "Clean.",
+    "Physics is clicking.",
+    "You knew that one.",
+    "Building momentum.",
+    "Locked in.",
+    "That's exactly right.",
+    "Big brain.",
+    "Easy work.",
+  ],
+  wrong: [
+    "Not this time — the reasoning is below.",
+    "This one's tricky. Check the explanation.",
+    "Close. Worth reading why below.",
+    "Good attempt. See the breakdown.",
+    "That trips a lot of people — read it once.",
+  ],
+  streak: (n: number): string => {
+    if (n === 3) return "3 in a row. You're in the zone."
+    if (n === 5) return "5 straight. Genuinely impressive."
+    if (n >= 7)  return `${n} in a row. Actual demon behavior.`
+    return `${n} in a row. Keep going.`
+  },
+  complete: {
+    high:   ["That's a strong set. You actually know this.", "Solid performance. The work is paying off.", "Physics is not beating you today.", "Strong finish."],
+    mid:    ["Good foundation. Review the ones you missed.", "Progress is real. Keep at it.", "More than halfway there — that counts."],
+    low:    ["Rough one. Now you know exactly what to review.", "Every miss is information. Check those explanations.", "Start with the explanations, then retry."],
+  },
+}
+
+function pick<T>(pool: T[]): T {
+  return pool[Math.floor(Math.random() * pool.length)]
+}
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -414,6 +491,8 @@ function QuizView({ questions, onDone }: { questions: Question[]; onDone: (score
   const [answered, setAnswered]     = useState(false)
   const [frqShown, setFrqShown]     = useState(false)
   const [score, setScore]           = useState(0)
+  const [streak, setStreak]         = useState(0)
+  const [feedbackMsg, setFeedbackMsg] = useState<string | null>(null)
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([])
   const [gradingResult, setGradingResult] = useState<GradingResult | null>(null)
   const [isGrading, setIsGrading]   = useState(false)
@@ -427,7 +506,16 @@ function QuizView({ questions, onDone }: { questions: Question[]; onDone: (score
     if (answered) return
     setSelected(i)
     setAnswered(true)
-    if ((q as MCQ).correct === i) setScore(s => s + 1)
+    const isCorrect = (q as MCQ).correct === i
+    if (isCorrect) {
+      setScore(s => s + 1)
+      const newStreak = streak + 1
+      setStreak(newStreak)
+      setFeedbackMsg(newStreak >= 3 ? FEEDBACK.streak(newStreak) : pick(FEEDBACK.correct))
+    } else {
+      setStreak(0)
+      setFeedbackMsg(pick(FEEDBACK.wrong))
+    }
   }
 
   const handleFRQReveal = () => {
@@ -476,6 +564,7 @@ function QuizView({ questions, onDone }: { questions: Question[]; onDone: (score
       setSelected(null)
       setAnswered(false)
       setFrqShown(false)
+      setFeedbackMsg(null)
       setUploadedFiles([])
       setGradingResult(null)
       setGradingError(null)
@@ -585,13 +674,30 @@ function QuizView({ questions, onDone }: { questions: Question[]; onDone: (score
             </div>
           )}
 
-          {/* Explanation for MCQ */}
+          {/* Feedback + Explanation for MCQ */}
           {answered && q.type === 'mcq' && (
-            <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} style={{ ...S.surface(), marginTop: '0.875rem', borderColor: 'var(--border)' }}>
-              <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}><MathText>{(q as MCQ).explanation}</MathText></p>
-              <button onClick={() => navigate(`/visualize/${q.topicId}`)} style={{ marginTop: '0.5rem', background: 'none', border: 'none', color: 'var(--accent-blue)', fontSize: '0.8125rem', cursor: 'pointer', padding: 0 }}>
-                → Visualize this concept
-              </button>
+            <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}>
+              {feedbackMsg && (
+                <div style={{
+                  marginTop: '0.75rem',
+                  padding: '0.5rem 0.875rem',
+                  borderRadius: '9999px',
+                  display: 'inline-block',
+                  background: selected === (q as MCQ).correct ? 'rgba(79,222,152,0.1)' : 'rgba(247,169,79,0.08)',
+                  border: `1px solid ${selected === (q as MCQ).correct ? 'rgba(79,222,152,0.3)' : 'rgba(247,169,79,0.25)'}`,
+                  color: selected === (q as MCQ).correct ? '#4fde98' : 'var(--accent-amber)',
+                  fontSize: '0.8125rem',
+                  fontWeight: 600,
+                }}>
+                  {feedbackMsg}
+                </div>
+              )}
+              <div style={{ ...S.surface(), marginTop: '0.75rem', borderColor: 'var(--border)' }}>
+                <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}><MathText>{(q as MCQ).explanation}</MathText></p>
+                <button onClick={() => navigate(`/visualize/${q.topicId}`)} style={{ marginTop: '0.5rem', background: 'none', border: 'none', color: 'var(--accent-blue)', fontSize: '0.8125rem', cursor: 'pointer', padding: 0 }}>
+                  → Visualize this concept
+                </button>
+              </div>
             </motion.div>
           )}
         </motion.div>
@@ -613,6 +719,8 @@ function ResultsView({ score, total, onRetry, onNew }: { score: number; total: n
   const pct = Math.round((score / total) * 100)
   const color = pct >= 80 ? '#4fde98' : pct >= 60 ? '#f7a94f' : '#f75f5f'
   const markProgress = useAppStore(s => s.markProgress)
+  const pool = pct >= 80 ? FEEDBACK.complete.high : pct >= 60 ? FEEDBACK.complete.mid : FEEDBACK.complete.low
+  const headline = useMemo(() => pick(pool), []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Mark a practice session as completed
   useMemo(() => { markProgress('practice-session') }, []) // eslint-disable-line react-hooks/exhaustive-deps
@@ -622,11 +730,11 @@ function ResultsView({ score, total, onRetry, onNew }: { score: number; total: n
       <div style={{ fontSize: '3.5rem', marginBottom: '1rem', lineHeight: 1 }}>
         {pct >= 80 ? '⚡' : pct >= 60 ? '📚' : '🔋'}
       </div>
-      <h2 style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
-        {pct >= 80 ? 'Excellent work!' : pct >= 60 ? 'Good progress.' : 'Keep studying.'}
+      <h2 style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.375rem' }}>
+        {headline}
       </h2>
       <p style={{ color: 'var(--text-secondary)', fontSize: '0.9375rem', marginBottom: '2rem' }}>
-        You scored {score} out of {total} ({pct}%)
+        {score} / {total} correct &nbsp;·&nbsp; <span style={{ color }}>{pct}%</span>
       </p>
 
       {/* Score bar */}

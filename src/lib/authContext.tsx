@@ -10,9 +10,16 @@ interface AuthContextValue {
   user: User | null
   profile: UserProfile | null
   loading: boolean
-  signIn: (email: string, password: string) => Promise<AuthResult>
-  signUp: (email: string, password: string, displayName: string) => Promise<AuthResult>
+  signIn: (username: string, password: string) => Promise<AuthResult>
+  signUp: (username: string, password: string) => Promise<AuthResult>
   signOut: () => Promise<AuthResult>
+}
+
+// Supabase requires an email — derive a synthetic one from the username.
+// Users never see or use this email; it's purely internal.
+function toEmail(username: string): string {
+  const safe = username.trim().toLowerCase().replace(/[^a-z0-9._-]/g, '_')
+  return `${safe}@physics421.local`
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null)
@@ -118,10 +125,9 @@ function ConfiguredAuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const signIn = async (email: string, password: string): Promise<AuthResult> => {
+  const signIn = async (username: string, password: string): Promise<AuthResult> => {
     try {
-      const { data, error } = await supabase!.auth.signInWithPassword({ email, password })
-      // Set user immediately so ProtectedRoute sees it before navigate() is called
+      const { data, error } = await supabase!.auth.signInWithPassword({ email: toEmail(username), password })
       if (!error && data.user) setUser(data.user)
       return { error: error?.message ?? null }
     } catch (e: unknown) {
@@ -130,12 +136,12 @@ function ConfiguredAuthProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
-  const signUp = async (email: string, password: string, displayName: string): Promise<AuthResult> => {
+  const signUp = async (username: string, password: string): Promise<AuthResult> => {
     try {
       const { error } = await supabase!.auth.signUp({
-        email,
+        email: toEmail(username),
         password,
-        options: { data: { display_name: displayName } },
+        options: { data: { display_name: username } },
       })
       return { error: error?.message ?? null }
     } catch (e: unknown) {
